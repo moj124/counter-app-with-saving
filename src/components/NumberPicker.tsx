@@ -2,31 +2,44 @@ import { useState } from "react";
 
 export default function NumberPicker(): JSX.Element {
   const [counterValueFromCurrentRender, queueRerenderWithNewCounterValue] =
-    useState(0);
+    useState('⏰');
   const [favouriteValueFromCurrentRender, queueRerenderWithNewFavouriteValue] =
-    useState(0);
+    useState('🛌');
 
-  const handleAddOneToCounter = () => {
-    queueRerenderWithNewCounterValue(counterValueFromCurrentRender + 1);
-  };
+  const handleBed = () => {
+    queueRerenderWithNewCounterValue('🛌');
+  }  
 
-  const handleSubtractOneFromCounter = () => {
-    queueRerenderWithNewCounterValue(counterValueFromCurrentRender - 1);
-  };
-
-  const handleStoreCurrentCount = () => {
+  const handleClock = () => {
     queueRerenderWithNewFavouriteValue(counterValueFromCurrentRender);
+    queueRerenderWithNewCounterValue('⏰');
+  }
+  
+  const handlePan = () => {
+    queueRerenderWithNewFavouriteValue(counterValueFromCurrentRender);
+    queueRerenderWithNewCounterValue('🍳');
+  };
+
+  const handlePlate = () => {
+    queueRerenderWithNewFavouriteValue(counterValueFromCurrentRender);
+    queueRerenderWithNewCounterValue('🍽️');
+  };
+
+  const handleTasty = () => {
+    queueRerenderWithNewFavouriteValue(counterValueFromCurrentRender);
+    queueRerenderWithNewCounterValue('😋')
   };
 
   return (
     <>
-      <h1>Number picker</h1>
-      <p>Your stored number: {favouriteValueFromCurrentRender}</p>
-      <p>Counter: {counterValueFromCurrentRender}</p>
-      <button onClick={handleSubtractOneFromCounter}>-1</button>
-      <button onClick={handleAddOneToCounter}>+1</button>
-      <hr />
-      <button onClick={handleStoreCurrentCount}>Store current count</button>
+      <h1>Emoji picker</h1>
+      <p>Your previous emoji: {favouriteValueFromCurrentRender}</p>
+      <p>Your current emoji: {counterValueFromCurrentRender}</p>
+      <button onClick={handleBed}>🛌</button>
+      <button onClick={handleClock}>⏰</button>
+      <button onClick={handlePan}>🍳</button>
+      <button onClick={handlePlate}>🍽️</button>
+      <button onClick={handleTasty}>😋</button>
     </>
   );
 }
