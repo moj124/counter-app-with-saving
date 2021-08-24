@@ -1,40 +1,37 @@
 import { useState } from "react";
 
 export default function NumberPicker(): JSX.Element {
-  const [counterValueFromCurrentRender, queueRerenderWithNewCounterValue] =
-    useState('⏰');
   const [favouriteValueFromCurrentRender, queueRerenderWithNewFavouriteValue] =
-    useState('🛌');
+    useState<string[]>(['🛌']);
 
   const handleBed = () => {
-    queueRerenderWithNewCounterValue('🛌');
+    queueRerenderWithNewFavouriteValue([...favouriteValueFromCurrentRender,'🛌']);
   }  
 
   const handleClock = () => {
-    queueRerenderWithNewFavouriteValue(counterValueFromCurrentRender);
-    queueRerenderWithNewCounterValue('⏰');
+    queueRerenderWithNewFavouriteValue([...favouriteValueFromCurrentRender,'⏰']);
   }
   
   const handlePan = () => {
-    queueRerenderWithNewFavouriteValue(counterValueFromCurrentRender);
-    queueRerenderWithNewCounterValue('🍳');
+    queueRerenderWithNewFavouriteValue([...favouriteValueFromCurrentRender,'🍳']);
   };
 
   const handlePlate = () => {
-    queueRerenderWithNewFavouriteValue(counterValueFromCurrentRender);
-    queueRerenderWithNewCounterValue('🍽️');
+    queueRerenderWithNewFavouriteValue([...favouriteValueFromCurrentRender,'🍽️']);
   };
 
   const handleTasty = () => {
-    queueRerenderWithNewFavouriteValue(counterValueFromCurrentRender);
-    queueRerenderWithNewCounterValue('😋')
+    queueRerenderWithNewFavouriteValue([...favouriteValueFromCurrentRender,'😋']);
   };
+  
+  const emojis = favouriteValueFromCurrentRender.map((element,index,array) => (index < array.length-1  && index > array.length - 7)  && (<li key={index}>{element}</li>));
 
   return (
     <>
       <h1>Emoji picker</h1>
-      <p>Your previous emoji: {favouriteValueFromCurrentRender}</p>
-      <p>Your current emoji: {counterValueFromCurrentRender}</p>
+      <p>Your previous emojis:</p>
+      <ul>{emojis}</ul>
+      <p>Your current emoji: {favouriteValueFromCurrentRender[favouriteValueFromCurrentRender.length-1]}</p>
       <button onClick={handleBed}>🛌</button>
       <button onClick={handleClock}>⏰</button>
       <button onClick={handlePan}>🍳</button>
