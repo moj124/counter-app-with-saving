@@ -1,37 +1,40 @@
 import { useState } from "react";
 
 export default function NumberPicker(): JSX.Element {
-  const [favouriteValueFromCurrentRender, queueRerenderWithNewFavouriteValue] =
+  const [pastEmojisFromCurrentRender, queueRerenderWithCurrentEmoji] =
     useState<string[]>(['🛌']);
 
   const handleBed = () => {
-    queueRerenderWithNewFavouriteValue([...favouriteValueFromCurrentRender,'🛌']);
+    queueRerenderWithCurrentEmoji([...pastEmojisFromCurrentRender,'🛌']);
   }  
 
   const handleClock = () => {
-    queueRerenderWithNewFavouriteValue([...favouriteValueFromCurrentRender,'⏰']);
+    queueRerenderWithCurrentEmoji([...pastEmojisFromCurrentRender,'⏰']);
   }
   
   const handlePan = () => {
-    queueRerenderWithNewFavouriteValue([...favouriteValueFromCurrentRender,'🍳']);
+    queueRerenderWithCurrentEmoji([...pastEmojisFromCurrentRender,'🍳']);
   };
 
   const handlePlate = () => {
-    queueRerenderWithNewFavouriteValue([...favouriteValueFromCurrentRender,'🍽️']);
+    queueRerenderWithCurrentEmoji([...pastEmojisFromCurrentRender,'🍽️']);
   };
 
   const handleTasty = () => {
-    queueRerenderWithNewFavouriteValue([...favouriteValueFromCurrentRender,'😋']);
+    queueRerenderWithCurrentEmoji([...pastEmojisFromCurrentRender,'😋']);
   };
-  
-  const emojis = favouriteValueFromCurrentRender.map((element,index,array) => (index < array.length-1  && index > array.length - 7)  && (<li key={index}>{element}</li>));
-
+  const history = () => {
+    
+    return pastEmojisFromCurrentRender.map((element,index,array) => (index < array.length-1  && index > array.length - 7)  && (<li key={index}>{element}</li>));
+  }
+  // const emojis = pastEmojisFromCurrentRender.map((element,index,array) => (index < array.length-1  && index > array.length - 7)  && (<li key={index}>{element}</li>));
+  console.log(history())
   return (
     <>
       <h1>Emoji picker</h1>
       <p>Your previous emojis:</p>
-      <ul>{emojis}</ul>
-      <p>Your current emoji: {favouriteValueFromCurrentRender[favouriteValueFromCurrentRender.length-1]}</p>
+      <ul>{history()}</ul>
+      <p>Your current emoji: {pastEmojisFromCurrentRender[pastEmojisFromCurrentRender.length-1]}</p>
       <button onClick={handleBed}>🛌</button>
       <button onClick={handleClock}>⏰</button>
       <button onClick={handlePan}>🍳</button>
